@@ -1,11 +1,20 @@
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { routerNavigationAction } from '@ngrx/router-store';
 
 import * as TrendsApiActions from '../actions/trends-api.actions';
 import * as TrendsListPageActions from '../actions/trends-list-page.actions';
+import * as TrendsDetailPageActions from '../actions/trends-detail-page.actions';
 import { TrendService } from '../../trend.service';
 
 @Injectable()
@@ -36,5 +45,24 @@ export class TrendsEffects {
     );
   });
 
-  constructor(private actions$: Actions, private trendService: TrendService) {}
+  deleteOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendsDetailPageActions.deleteTrend),
+      switchMap(({ id }) => {
+        return this.trendService.delete(id).pipe(
+          map(() => {
+            this.router.navigate(['/trends']);
+            return TrendsApiActions.deleteTrendSuccess();
+          }),
+          catchError(() => of(TrendsApiActions.deleteTrendError()))
+        );
+      })
+    );
+  });
+
+  constructor(
+    private actions$: Actions,
+    private trendService: TrendService,
+    private router: Router
+  ) {}
 }

@@ -1,5 +1,5 @@
-@use 'sass:color';
-@import 'settings/variables';
+@use "sass:color";
+@import "settings/variables";
 
 .link-to-home {
   display: none;
@@ -28,6 +28,7 @@
   padding: 0;
   text-align: center;
   background-color: color.scale($primary, $alpha: -80%);
+  cursor: pointer;
 
   &:active {
     transform: scale(0.95);
@@ -73,8 +74,8 @@
   }
 
   &::after {
-    content: '';
-    background: url('/assets/Iconos/Actions/link.svg') no-repeat;
+    content: "";
+    background: url("/assets/Iconos/Actions/link.svg") no-repeat;
     background-size: cover;
     width: 0.75rem;
     height: 0.75rem;
@@ -90,6 +91,52 @@
   &:not(:last-of-type) {
     margin-bottom: 2rem;
   }
+}
+
+.trend__dialog-delete {
+  border: none;
+  border-radius: 1rem;
+  padding: 1.5rem;
+
+  header {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  section {
+    margin: 1.5rem 0 1.5rem 0;
+    font-size: 16px;
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+
+    button {
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #accept-dialog {
+      margin-left: 1.5rem;
+      background: none;
+      border: none;
+    }
+
+    #cancel-dialog {
+      border: none;
+      border-radius: 0.5rem;
+      height: 2rem;
+      min-width: 6rem;
+      background-color: $primary;
+      color: $secondary;
+    }
+  }
+}
+
+.trend__dialog-delete::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
 }
 
 @media screen and (min-width: 768px) {

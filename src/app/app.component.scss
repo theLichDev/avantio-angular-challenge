@@ -1,4 +1,4 @@
-@import 'settings/variables';
+@import "settings/variables";
 
 :host {
   display: flex;
@@ -57,6 +57,29 @@
   padding-right: 1.5rem;
 }
 
+.app-new-trend {
+  position: fixed;
+  right: 1rem;
+  bottom: 35%;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  z-index: 1;
+  border: none;
+  text-align: center;
+  background-color: $primary;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  & > img {
+    width: 60%;
+    vertical-align: bottom;
+  }
+}
+
 @media screen and (min-width: 768px) {
   :host {
     display: grid;
@@ -65,8 +88,8 @@
     gap: 2rem 0px;
     grid-auto-flow: row;
     grid-template-areas:
-      'navigation header'
-      'navigation main';
+      "navigation header"
+      "navigation main";
     height: 100vh;
   }
 
@@ -92,6 +115,16 @@
     height: 4.125rem;
     font-size: 0.875rem;
     padding-right: 4rem;
+  }
+
+  .app-new-trend {
+    width: 4.5rem;
+    height: 4.5rem;
+    right: 2rem;
+
+    & > img {
+      width: 50%;
+    }
   }
 }
 

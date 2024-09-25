@@ -17,3 +17,9 @@ export const loadOneTrendSuccess = createAction(
 export const loadOneTrendError = createAction(
   '[Trends/API] Load One Trend Error'
 );
+
+export const deleteTrendSuccess = createAction(
+  '[Trends/API] Delete Trend Success'
+);
+
+export const deleteTrendError = createAction('[Trends/API] Delete Trend Error');
