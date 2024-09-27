@@ -1,0 +1,25 @@
+<div class="trend__side-form-backdrop" *ngIf="isSideFormOpen"></div>
+<div class="trend__side-form" [class.open]="isSideFormOpen">
+  <div class="header">
+    <div class="title">
+      {{ isEditMode ? "Edita la noticia" : "Nueva noticia" }}
+    </div>
+    <div class="btn-group">
+      <button class="close-btn" (click)="closeSideForm()">Cancelar</button>
+      <button type="submit" class="submit-btn" form="trendForm">Guardar</button>
+    </div>
+  </div>
+  <form id="trendForm" [formGroup]="trendForm" (ngSubmit)="saveTrend()">
+    <label for="url">URL</label>
+    <input type="text" id="url" formControlName="url" />
+
+    <label for="provider">Autor</label>
+    <input type="text" id="provider" formControlName="provider" />
+
+    <label for="title">Título</label>
+    <input type="text" id="title" formControlName="title" />
+
+    <label for="body">Contenido</label>
+    <textarea id="body" formControlName="body"></textarea>
+  </form>
+</div>

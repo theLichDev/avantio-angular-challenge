@@ -23,6 +23,7 @@
 <main class="app-main-content">
   <router-outlet></router-outlet>
 </main>
-<button class="app-new-trend">
+<button class="app-new-trend" (click)="openTrendSideForm()">
   <img src="assets/Iconos/Actions/add.svg" alt="Crear Noticia" />
 </button>
+<app-trend-side-form></app-trend-side-form>

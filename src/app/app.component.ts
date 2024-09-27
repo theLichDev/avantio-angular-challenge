@@ -4,6 +4,7 @@ import { delay } from 'rxjs/operators';
 
 import { CustomBreakpointObserver } from './layout';
 import { selectIsLoadingState } from './store/selectors';
+import { TrendSideFormService } from './trends/trend-side-form/trend-side-form.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,13 @@ export class AppComponent {
   // The delay prevents ExpressionChangedAfterItHasBeenCheckedError
   isLoading$ = this.store.select(selectIsLoadingState).pipe(delay(0));
 
+  openTrendSideForm() {
+    this.trendSideFormService.openTrendSideForm();
+  }
+
   constructor(
     private breakpointsObserver: CustomBreakpointObserver,
-    private store: Store
+    private store: Store,
+    private trendSideFormService: TrendSideFormService
   ) {}
 }
