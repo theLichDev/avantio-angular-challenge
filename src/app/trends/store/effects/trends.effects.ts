@@ -15,7 +15,9 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import * as TrendsApiActions from '../actions/trends-api.actions';
 import * as TrendsListPageActions from '../actions/trends-list-page.actions';
 import * as TrendsDetailPageActions from '../actions/trends-detail-page.actions';
+import * as TrendSideFormActions from '../actions/trend-side-form.actions';
 import { TrendService } from '../../trend.service';
+import { TrendSideFormService } from '../../trend-side-form/trend-side-form.service';
 
 @Injectable()
 export class TrendsEffects {
@@ -60,9 +62,49 @@ export class TrendsEffects {
     );
   });
 
+  createOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendSideFormActions.createTrend),
+      switchMap(({ trendBody }) => {
+        return this.trendService.create(trendBody).pipe(
+          map((trend) => {
+            console.log('Trend creado correctamente');
+            this.trendSideFormService.closeTrendSideForm();
+            this.router.navigate([`/trends/${trend.id}`]);
+            return TrendsApiActions.createTrendSuccess(trend);
+          }),
+          catchError(() => {
+            console.log('Error creando un nuevo trend');
+            return of(TrendsApiActions.createTrendError());
+          })
+        );
+      })
+    );
+  });
+
+  updateOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendSideFormActions.updateTrend),
+      switchMap(({ id, trendBody }) => {
+        return this.trendService.update(id, trendBody).pipe(
+          map(() => {
+            console.log('Trend actualizado correctamente');
+            this.trendSideFormService.closeTrendSideForm();
+            return TrendsApiActions.updateTrendSuccess();
+          }),
+          catchError(() => {
+            console.log('Error actualizando trend');
+            return of(TrendsApiActions.updateTrendError);
+          })
+        );
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private trendService: TrendService,
-    private router: Router
+    private router: Router,
+    private trendSideFormService: TrendSideFormService
   ) {}
 }

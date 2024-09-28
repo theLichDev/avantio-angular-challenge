@@ -19,19 +19,20 @@
 }
 
 .trend__side-form {
-  width: 500px;
   background-color: white;
-  border-top-left-radius: 2rem;
-  padding: 2.25rem;
   display: flex;
   flex-direction: column;
   position: fixed;
-  right: 0;
-  top: 0;
-  height: 100vh;
   z-index: 4;
-  transform: translateX(100%);
   transition: transform 0.3s ease;
+  width: 100%;
+  height: 80vh;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  padding: 2.25rem;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
 
   .header {
     display: flex;
@@ -95,5 +96,20 @@
 }
 
 .trend__side-form.open {
-  transform: translateX(0);
+  transform: translateY(0);
+}
+
+@media screen and (min-width: 768px) {
+  .trend__side-form {
+    width: 500px;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 0;
+    top: 0;
+    height: 100vh;
+    transform: translateX(100%);
+  }
+
+  .trend__side-form.open {
+    transform: translateX(0);
+  }
 }
