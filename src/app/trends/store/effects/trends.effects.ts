@@ -18,6 +18,8 @@ import * as TrendsDetailPageActions from '../actions/trends-detail-page.actions'
 import * as TrendSideFormActions from '../actions/trend-side-form.actions';
 import { TrendService } from '../../trend.service';
 import { TrendSideFormService } from '../../trend-side-form/trend-side-form.service';
+import { ToastsService } from 'src/app/toasts/toasts.service';
+import { ToastType } from 'src/app/toasts/models/toast.model';
 
 @Injectable()
 export class TrendsEffects {
@@ -54,9 +56,23 @@ export class TrendsEffects {
         return this.trendService.delete(id).pipe(
           map(() => {
             this.router.navigate(['/trends']);
+            this.toastsService.show(
+              'Exito',
+              'Se ha borrado la noticia',
+              6,
+              ToastType.Success
+            );
             return TrendsApiActions.deleteTrendSuccess();
           }),
-          catchError(() => of(TrendsApiActions.deleteTrendError()))
+          catchError(() => {
+            this.toastsService.show(
+              'Error',
+              'No se ha podido borrar la noticia',
+              6,
+              ToastType.Error
+            );
+            return of(TrendsApiActions.deleteTrendError());
+          })
         );
       })
     );
@@ -68,13 +84,23 @@ export class TrendsEffects {
       switchMap(({ trendBody }) => {
         return this.trendService.create(trendBody).pipe(
           map((trend) => {
-            console.log('Trend creado correctamente');
+            this.toastsService.show(
+              'Exito',
+              'Noticia creada correctamente',
+              6,
+              ToastType.Success
+            );
             this.trendSideFormService.closeTrendSideForm();
             this.router.navigate([`/trends/${trend.id}`]);
             return TrendsApiActions.createTrendSuccess(trend);
           }),
           catchError(() => {
-            console.log('Error creando un nuevo trend');
+            this.toastsService.show(
+              'Error',
+              'No se ha podido crear la noticia',
+              6,
+              ToastType.Error
+            );
             return of(TrendsApiActions.createTrendError());
           })
         );
@@ -88,12 +114,22 @@ export class TrendsEffects {
       switchMap(({ id, trendBody }) => {
         return this.trendService.update(id, trendBody).pipe(
           map(() => {
-            console.log('Trend actualizado correctamente');
+            this.toastsService.show(
+              'Exito',
+              'Noticia actualizada correctamente',
+              6,
+              ToastType.Success
+            );
             this.trendSideFormService.closeTrendSideForm();
             return TrendsApiActions.updateTrendSuccess();
           }),
           catchError(() => {
-            console.log('Error actualizando trend');
+            this.toastsService.show(
+              'Error',
+              'No se ha podido actualizar la noticia',
+              6,
+              ToastType.Error
+            );
             return of(TrendsApiActions.updateTrendError);
           })
         );
@@ -105,6 +141,7 @@ export class TrendsEffects {
     private actions$: Actions,
     private trendService: TrendService,
     private router: Router,
-    private trendSideFormService: TrendSideFormService
+    private trendSideFormService: TrendSideFormService,
+    private toastsService: ToastsService
   ) {}
 }

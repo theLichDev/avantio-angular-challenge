@@ -1,0 +1,34 @@
+<div
+  class="toast"
+  [ngClass]="{
+    'position-top-right': toast.position === 'position-top-right',
+    'position-top-left': toast.position === 'position-top-left',
+    'position-bottom-right': toast.position === 'position-bottom-right',
+    'position-bottom-left': toast.position === 'position-bottom-left',
+    error: toast.type === 'error',
+    success: toast.type === 'success',
+    info: toast.type === 'info'
+  }"
+  *ngIf="toast.visible"
+>
+  <div class="toast-grid">
+    <div class="img flexbox-center">
+      <img
+        *ngIf="toast.type === 'error'"
+        src="assets/Iconos/Toasts/error.svg"
+      />
+      <img
+        *ngIf="toast.type === 'success'"
+        src="assets/Iconos/Toasts/success.svg"
+      />
+      <img *ngIf="toast.type === 'info'" src="assets/Iconos/Toasts/info.svg" />
+    </div>
+
+    <div class="title">{{ toast.title }}</div>
+    <div class="message">{{ toast.message }}</div>
+
+    <div class="btn-close flexbox-center">
+      <img (click)="close()" src="assets/Iconos/Toasts/close.svg" width="25" />
+    </div>
+  </div>
+</div>

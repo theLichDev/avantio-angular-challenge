@@ -8,6 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout';
 import { AppMenuModule } from './menu';
+import { ToastsModule } from './toasts/toasts.module';
 import { AppPageNotFoundComponent } from './app-page-not-found.component';
 import { AppProgressBarComponent } from './app-progress-bar.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,9 +31,10 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     AppLayoutModule,
     AppMenuModule,
+    ToastsModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, httpInterceptorProviders],
   bootstrap: [AppComponent],

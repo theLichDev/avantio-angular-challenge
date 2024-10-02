@@ -1,0 +1,85 @@
+.toast {
+  position: fixed;
+  width: 20rem;
+  padding: 1rem;
+  background-color: grey;
+  border-radius: 1rem;
+  z-index: 5;
+
+  .toast-grid {
+    display: grid;
+    grid-template-areas:
+      "img title btn-close"
+      "img message message";
+    grid-template-columns: 20% 70% 10%;
+    grid-template-rows: 50% 50%;
+
+    .img {
+      grid-area: img;
+      margin-right: 0.5rem;
+
+      img {
+        height: 3.25rem;
+        width: 3.25rem;
+      }
+    }
+
+    .title {
+      grid-area: title;
+      padding: 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .message {
+      grid-area: message;
+      padding: 3px;
+      font-size: small;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .btn-close {
+      grid-area: btn-close;
+      cursor: pointer;
+    }
+
+    .flexbox-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.toast.info {
+  background-color: lightblue;
+}
+
+.toast.error {
+  background-color: lightcoral;
+}
+
+.toast.success {
+  background-color: lightgreen;
+}
+
+.toast.position-top-right {
+  top: 2rem;
+  right: 2rem;
+}
+
+.toast.position-top-left {
+  top: 2rem;
+  left: 2rem;
+}
+
+.toast.position-bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.toast.position-bottom-left {
+  bottom: 2rem;
+  left: 2rem;
+}
